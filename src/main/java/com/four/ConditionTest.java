@@ -16,7 +16,14 @@ public class ConditionTest {
      * 创建等待条件
      */
     private final static Condition CONDITION = LOCK.newCondition();
-    public static void main(String[] args) {
-        //CONDITION.
+    public static void main(String[] args) throws InterruptedException {
+        LOCK.lock();
+        try {
+            CONDITION.awaitUntil(new Date(System.currentTimeMillis() + 3000));
+            System.out.println("qwewqewqewqe");
+        }finally {
+            LOCK.unlock();
+        }
+
     }
 }
