@@ -14,10 +14,17 @@ public class WriteLockTest {
     private final static ReentrantReadWriteLock.WriteLock WRITE_LOCK = REENTRANT_READ_WRITE_LOCK.writeLock();
 
     public static void main(String[] args) {
-        Task task = new Task();
-        new Thread(task, "线程1").start();
-        new Thread(task, "线程2").start();
-        new Thread(task, "线程3").start();
+//        Task task = new Task();
+//        new Thread(task, "线程1").start();
+//        new Thread(task, "线程2").start();
+//        new Thread(task, "线程3").start();
+
+        int sha = (1 << 16) -1;
+        int state = 0;
+        //假设独占锁+1
+        state = state+100;
+
+        System.out.println((65536 * 10) >>> 16);
     }
 
     private static class Task implements Runnable {
