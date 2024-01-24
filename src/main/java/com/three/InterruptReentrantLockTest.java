@@ -19,8 +19,9 @@ public class InterruptReentrantLockTest {
 
         thread1.start();
         //睡眠的原因是先尝试让线程1 获取锁
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(1);
         thread2.start();
+
         //线程2等待锁的过程中中断等待
         thread2.interrupt();
     }
@@ -31,11 +32,11 @@ public class InterruptReentrantLockTest {
         public void run() {
             try {
                 System.out.println(Thread.currentThread().getName() + "尝试获取锁.");
-                LOCK.tryLock(60, TimeUnit.SECONDS);
+                LOCK.lockInterruptibly();
                 try {
                     System.out.println(Thread.currentThread().getName() + "获取到了锁.");
                     try {
-                        TimeUnit.SECONDS.sleep(60);
+                        TimeUnit.SECONDS.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -43,7 +44,7 @@ public class InterruptReentrantLockTest {
                     LOCK.unlock();
                 }
             } catch (InterruptedException e) {
-                System.out.println(Thread.currentThread().getName() + "等待锁的时候被中断.");
+                System.out.println(Thread.currentThread().getName() + "等待锁的时候被中断,结束等待.");
             }
 
         }

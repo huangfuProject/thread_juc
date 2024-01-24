@@ -13,12 +13,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SpinLockTest {
     private AtomicBoolean locked = new AtomicBoolean(false);
 
+    /**
+     * 自旋锁加锁操作
+     */
     public void lock() {
         while (!locked.compareAndSet(false, true)) {
             // 自旋等待锁释放
         }
     }
 
+    /**
+     * 自旋锁 解锁操作
+     */
     public void unlock() {
         locked.set(false);
     }

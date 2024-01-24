@@ -3,12 +3,12 @@ package com.three;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class WriteLockTest {
+public class SharedLockTest {
     private final static ReentrantReadWriteLock REENTRANT_READ_WRITE_LOCK = new ReentrantReadWriteLock();
     /**
-     * 获取写锁
+     * 获取读锁
      */
-    private final static ReentrantReadWriteLock.WriteLock WRITE_LOCK = REENTRANT_READ_WRITE_LOCK.writeLock();
+    private final static ReentrantReadWriteLock.ReadLock READ_LOCK = REENTRANT_READ_WRITE_LOCK.readLock();
     public static void main(String[] args) {
         Task task = new Task();
         new Thread(task, "线程1").start();
@@ -18,16 +18,16 @@ public class WriteLockTest {
     private static class Task implements Runnable {
         @Override
         public void run() {
-            System.out.println(Thread.currentThread().getName() + "开始获取锁.");
-            WRITE_LOCK.lock();
+            System.out.println(Thread.currentThread().getName() + "开始获取数据.");
+            READ_LOCK.lock();
             try {
-                System.out.println(Thread.currentThread().getName() + "获取锁成功开始写入数据.");
+                System.out.println(Thread.currentThread().getName() + "开始读取数据.");
                 TimeUnit.SECONDS.sleep(3);
                 System.out.println(Thread.currentThread().getName() + "执行完毕，释放锁.");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                WRITE_LOCK.unlock();
+                READ_LOCK.unlock();
             }
         }
     }

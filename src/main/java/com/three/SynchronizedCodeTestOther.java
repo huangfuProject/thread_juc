@@ -4,10 +4,11 @@ package com.three;
  * @author huangfukexing
  * @date 2023/10/31 12:56
  */
-public class SynchronizedClassTest {
+public class SynchronizedCodeTestOther {
 
     public static void main(String[] args) throws InterruptedException {
-        Task task = new Task();
+        Object lock = new Object();
+        Task task = new Task(lock);
         Thread thread1 = new Thread(task, "线程1");
         Thread thread2 = new Thread(task, "线程2");
 
@@ -20,18 +21,19 @@ public class SynchronizedClassTest {
     }
 
     private static class Task implements Runnable {
-        static int count = 0;
-        @Override
-        public  void run() {
-            Task.addCount();
+        private final Object lock;
+        int count = 0;
+
+        private Task(Object lock) {
+            this.lock = lock;
         }
 
-        public static  void addCount(){
+        @Override
+        public  void run() {
             for (int j = 0; j < 100000; j++) {
-                synchronized (SynchronizedClassTest.class) {
+                synchronized (lock) {
                     count++;
                 }
-
             }
         }
 

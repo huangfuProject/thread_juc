@@ -17,7 +17,7 @@ public class FairLockTest {
     public static void main(String[] args) throws InterruptedException {
         Task target = new Task();
         List<Thread> threadList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             Thread thread1 = new Thread(target, "线程"+i);
             threadList.add(thread1);
         }
@@ -33,6 +33,7 @@ public class FairLockTest {
 
         @Override
         public void run() {
+            //第一次获取锁
             LOCK.lock();
             try {
                 System.out.println(Thread.currentThread().getName() + "获取到了锁.");
@@ -42,9 +43,10 @@ public class FairLockTest {
                     e.printStackTrace();
                 }
             }finally {
+                //第一次释放锁
                 LOCK.unlock();
             }
-            //当前线程释放锁之后，再次尝试获取，如果是公平锁，他就会排在10个线程之后
+            //第二次获取锁
             LOCK.lock();
             try {
                 System.out.println(Thread.currentThread().getName() + "获取到了锁.");
@@ -54,6 +56,7 @@ public class FairLockTest {
                     e.printStackTrace();
                 }
             }finally {
+                //第二次释放锁
                 LOCK.unlock();
             }
 

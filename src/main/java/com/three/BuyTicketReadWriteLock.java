@@ -33,10 +33,10 @@ public class BuyTicketReadWriteLock {
          * 购票
          */
         public void buyTicket(){
-            System.out.println(Thread.currentThread().getName() + "尝试获取锁，准备购票.");
+            System.out.println(Thread.currentThread().getName() + "尝试获取写锁，准备购票.");
             WRITE_LOCK.lock();
             try {
-                System.out.println(Thread.currentThread().getName() + "获取到锁，开始购票.");
+                System.out.println(Thread.currentThread().getName() + "获取到写锁，开始购票.");
                 if(remainingVotes >0) {
                     remainingVotes--;
                     Thread.sleep(2000);
@@ -56,12 +56,12 @@ public class BuyTicketReadWriteLock {
          * 查询票
          */
         public void selectTicket(){
-            System.out.println(Thread.currentThread().getName() + "尝试获取锁，准备查询票.");
+            System.out.println(Thread.currentThread().getName() + "尝试获取读锁，准备查询票.");
             READ_LOCK.lock();
             try {
-                System.out.println(Thread.currentThread().getName() + "获取到锁，当前余票为: " + remainingVotes);
+                System.out.println(Thread.currentThread().getName() + "获取到读锁，当前余票为: " + remainingVotes);
                 Thread.sleep(1000);
-                System.out.println(Thread.currentThread().getName() + "查询成功，释放锁.");
+                System.out.println(Thread.currentThread().getName() + "查询成功，释放读锁.");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
