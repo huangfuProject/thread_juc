@@ -16,6 +16,13 @@ public class DineTest {
         @Override
         public void run() {
             System.out.println("人都到齐了，出发去团建;每一个人都很开心，脸上挂着幸福的笑容.");
+            System.out.println("公司班车开始发往目的地...");
+            try {
+                Thread.sleep((long) (Math.random() * 10000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("两个小时后...");
         }
     });
 
@@ -27,7 +34,7 @@ public class DineTest {
     }
 
     /**
-     * 员工出发去公司的任务任务
+     * 公司任务
      */
     private static class EmployeeAct implements Runnable {
         private final String name;
@@ -44,7 +51,7 @@ public class DineTest {
                 Thread.sleep((long) (Math.random() * 10000));
                 System.out.println(name + "到达公司");
                 BUDDY_CUNT.await();
-                Thread.sleep((long) (Math.random() * 10000));
+
                 System.out.println(name + "经过2个小时的车程，到达了目的地");
             } catch (Exception e) {
                 e.printStackTrace();

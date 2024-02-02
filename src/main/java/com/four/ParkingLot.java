@@ -35,8 +35,8 @@ public class ParkingLot {
     }
 
     public static void main(String[] args) {
-        ParkingLot parkingLot = new ParkingLot(5);
-        for (int i = 0; i < 10; i++) {
+        ParkingLot parkingLot = new ParkingLot(4);
+        for (int i = 0; i < 6; i++) {
             EXECUTOR.execute(new CarActive(parkingLot, "车辆"+i));
         }
     }
@@ -53,7 +53,7 @@ public class ParkingLot {
                 // 开始等待车位
                 CONDITION.await();
             }
-            // 有停车位
+            // 有停车位，抢到了 将已经占用的数量+1
             occupiedSpaces++;
             System.out.println(name + ": 车辆成功停车，剩余的停车位:" + (totalParkingSpaces - occupiedSpaces));
         } catch (InterruptedException e) {
@@ -69,7 +69,7 @@ public class ParkingLot {
     public void bearOff(String name){
         LOCK.lock();
         try {
-            // 离开停车场
+            // 离开停车场  将已占用的数量-1
             occupiedSpaces--;
             System.out.println(name + ": 车辆离开停车场，剩余停车位: " + (totalParkingSpaces - occupiedSpaces));
             // 通知等待的车辆有空位了

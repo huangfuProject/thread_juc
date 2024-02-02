@@ -9,12 +9,18 @@ import java.util.concurrent.*;
  */
 public class SemaphoreTest {
 
-    private static final Semaphore SEMAPHORE = new Semaphore(2, true);
     private final static ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(10, 20, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<>(100), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
+
+
+    /**
+     * 同时只能存在两个令牌
+     */
+    private static final Semaphore SEMAPHORE = new Semaphore(2, true);
+
 
     public static void main(String[] args) throws Exception {
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 5; i++) {
             EXECUTOR.execute(new Task());
         }
 

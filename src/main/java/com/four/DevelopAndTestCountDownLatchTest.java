@@ -44,14 +44,17 @@ public class DevelopAndTestCountDownLatchTest {
 
         @Override
         public void run() {
-            EXECUTOR.execute(new DevelopCode("小红"));
-            EXECUTOR.execute(new DevelopCode("小绿"));
-            EXECUTOR.execute(new DevelopCode("小蓝"));
-            EXECUTOR.execute(new DevelopCode("小紫"));
+            EXECUTOR.execute(new DevelopCode("java小红"));
+            EXECUTOR.execute(new DevelopCode("java小绿"));
+            EXECUTOR.execute(new DevelopCode("java小蓝"));
+            EXECUTOR.execute(new DevelopCode("java小紫"));
         }
     }
 
 
+    /**
+     * 开发人员开始进行开发代码
+     */
     private static class DevelopCode implements Runnable {
         private final String name;
 
@@ -63,9 +66,9 @@ public class DevelopAndTestCountDownLatchTest {
         public void run() {
 
             try {
-                System.out.println(name + "开始开发代码.");
+                System.out.println(name + "开始开发代码.......");
                 Thread.sleep((long) (Math.random() * 10000));
-                System.out.println(name + "完成代码开发.");
+                System.out.println(name + "完成了代码开发！");
                 //等待其他人完成开发
                 DEVELOP_COUNT.await();
             } catch (Exception e) {
@@ -82,9 +85,9 @@ public class DevelopAndTestCountDownLatchTest {
         @Override
         public void run() {
             try {
-                System.out.println("开发人员开发完成，测试人员开始测试.");
+                System.out.println("开发人员全部都开发完成了，测试人员开始测试.");
                 Thread.sleep((long) (Math.random() * 10000));
-                System.out.println("测试人员完成测试");
+                System.out.println("测试人员完成测试，服务没有问题，可以准备上线了.");
                 TEST_COUNT.await();
             } catch (Exception e) {
                 e.printStackTrace();
