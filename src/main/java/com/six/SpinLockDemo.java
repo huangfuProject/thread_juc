@@ -24,6 +24,7 @@ public class SpinLockDemo {
         while (!atomicReference.compareAndSet(null, thread)) {
             System.out.println(Thread.currentThread().getName() + "尝试重新获取锁");
         }
+        System.out.println(Thread.currentThread().getName() + "获取到锁");
     }
 
     /**

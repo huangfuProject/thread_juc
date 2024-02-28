@@ -10,7 +10,8 @@ public class ConcurrentLinkedQueueTest {
 
     public static void main(String[] args) {
         ConcurrentLinkedQueue<String> concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
-
+        System.out.println(concurrentLinkedQueue.poll());
+        System.out.println(concurrentLinkedQueue.peek());
 
     }
 }
