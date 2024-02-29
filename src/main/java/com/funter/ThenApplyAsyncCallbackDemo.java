@@ -25,13 +25,13 @@ public class ThenApplyAsyncCallbackDemo {
         }, THREAD_POOL_EXECUTOR);
 
         //这里也开始修改为链式调用   使用的是上一个任务的线程池
-        CompletableFuture<String> stringCompletableFuture = resFuture.thenApplyAsync(res -> {
+        CompletableFuture<String> thenApplyAsyncCompletableFuture = resFuture.thenApplyAsync(res -> {
             System.out.println("上一个异步任务完成， 第二个异步任务开始运行，运行的线程名称为：" + Thread.currentThread().getName());
             System.out.println("上一步的结果为：" + res);
             return res + "-new";
         }, THREAD_POOL_EXECUTOR);
 
-        System.out.println(stringCompletableFuture.get());
+        System.out.println(thenApplyAsyncCompletableFuture.get());
         THREAD_POOL_EXECUTOR.shutdown();
     }
 }

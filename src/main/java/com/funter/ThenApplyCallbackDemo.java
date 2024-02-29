@@ -25,13 +25,13 @@ public class ThenApplyCallbackDemo {
         }, THREAD_POOL_EXECUTOR);
 
         //这里也开始修改为链式调用   使用的是上一个任务的线程池
-        CompletableFuture<String> stringCompletableFuture = resFuture.thenApply(res -> {
+        CompletableFuture<String> thenApplyCompletableFuture = resFuture.thenApply(res -> {
             System.out.println("上一个异步任务完成， 回调任务开始运行");
             System.out.println("上一步的结果为：" + res);
             return res + "-new";
         });
 
-        System.out.println(stringCompletableFuture.get());
+        System.out.println(thenApplyCompletableFuture.get());
         THREAD_POOL_EXECUTOR.shutdown();
     }
 }
