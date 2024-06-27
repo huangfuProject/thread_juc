@@ -25,11 +25,12 @@ public class DelayQueueTest {
     }
 
     private static class DelayedTask implements Delayed {
-        private long delayTime;  // 延迟时间，单位为纳秒
+        private long delayTime;  // 延迟时间，单位为毫秒
         private String taskName;
 
         public DelayedTask(String taskName, long delayTime) {
             this.taskName = taskName;
+            // 50000
             this.delayTime = System.currentTimeMillis() + delayTime;
         }
 
